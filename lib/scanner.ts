@@ -1,3 +1,5 @@
+import { FIXES, type FixHint } from "./fixes";
+
 export type CheckStatus = "pass" | "warn" | "fail" | "info";
 
 export type CheckResult = {
@@ -8,6 +10,7 @@ export type CheckResult = {
   evidence?: string;
   points: number;
   max: number;
+  fix?: FixHint;
 };
 
 export type CategoryResult = {
@@ -232,6 +235,8 @@ export async function runScan(rawUrl: string): Promise<ScanReport> {
     faviconIco,
     manifestJson,
     siteWebmanifest,
+    openidConfig,
+    agentJson,
   ] = await Promise.all([
     tryFetchText(origin + "/robots.txt"),
     tryFetchText(origin + "/sitemap.xml"),
@@ -252,6 +257,8 @@ export async function runScan(rawUrl: string): Promise<ScanReport> {
     tryHead(origin + "/favicon.ico"),
     tryHead(origin + "/manifest.json"),
     tryHead(origin + "/site.webmanifest"),
+    tryFetchText(origin + "/.well-known/openid-configuration"),
+    tryFetchText(origin + "/.well-known/agent.json"),
   ]);
 
   // --- Discoverability ---
@@ -525,6 +532,30 @@ export async function runScan(rawUrl: string): Promise<ScanReport> {
     max: 5,
   });
 
+  protocolChecks.push({
+    id: "openid-config",
+    title: ".well-known/openid-configuration (OIDC)",
+    status: openidConfig.ok ? "pass" : "info",
+    detail: openidConfig.ok
+      ? "OIDC 디스커버리 매니페스트 제공됨 — 에이전트 인증 흐름 가능."
+      : "OIDC 매니페스트 미제공. 인증 필요한 API라면 표준 권장.",
+    evidence: openidConfig.ok ? openidConfig.text.slice(0, 500) : undefined,
+    points: openidConfig.ok ? 5 : 0,
+    max: 5,
+  });
+
+  protocolChecks.push({
+    id: "agent-json",
+    title: ".well-known/agent.json (에이전트 카드)",
+    status: agentJson.ok ? "pass" : "info",
+    detail: agentJson.ok
+      ? "agent.json 제공됨 — 신흥 에이전트 카드 컨벤션."
+      : "agent.json 미제공. 사이트 한 줄 소개·주요 엔드포인트를 에이전트가 한 번에 읽을 수 있게 권장.",
+    evidence: agentJson.ok ? agentJson.text.slice(0, 500) : undefined,
+    points: agentJson.ok ? 5 : 0,
+    max: 5,
+  });
+
   // --- Commerce / Misc ---
   const commerceChecks: CheckResult[] = [];
 
@@ -586,7 +617,7 @@ export async function runScan(rawUrl: string): Promise<ScanReport> {
       summary: "크롤러와 에이전트가 사이트 구조를 발견할 수 있는가",
       score: sum(discoverabilityChecks, "points"),
       max: sum(discoverabilityChecks, "max"),
-      checks: discoverabilityChecks,
+      checks: attachFixes(discoverabilityChecks),
     },
     {
       id: "content",
@@ -594,7 +625,7 @@ export async function runScan(rawUrl: string): Promise<ScanReport> {
       summary: "AI 친화 포맷(마크다운·JSON-LD·OpenGraph·피드·hreflang)으로 본문을 제공하는가",
       score: sum(contentChecks, "points"),
       max: sum(contentChecks, "max"),
-      checks: contentChecks,
+      checks: attachFixes(contentChecks),
     },
     {
       id: "bot-access",
@@ -602,15 +633,15 @@ export async function runScan(rawUrl: string): Promise<ScanReport> {
       summary: "AI 봇에 대한 명시적 허용/차단 정책이 있는가",
       score: sum(botChecks, "points"),
       max: sum(botChecks, "max"),
-      checks: botChecks,
+      checks: attachFixes(botChecks),
     },
     {
       id: "protocols",
       title: "프로토콜 발견",
-      summary: "MCP / ai-plugin / OpenAPI / security.txt / API 힌트 등 표준 엔드포인트",
+      summary: "MCP / ai-plugin / OpenAPI / OIDC / agent.json / security.txt 등 표준 엔드포인트",
       score: sum(protocolChecks, "points"),
       max: sum(protocolChecks, "max"),
-      checks: protocolChecks,
+      checks: attachFixes(protocolChecks),
     },
     {
       id: "commerce",
@@ -618,7 +649,7 @@ export async function runScan(rawUrl: string): Promise<ScanReport> {
       summary: "에이전트 결제(x402/MPP), PWA manifest, 신뢰 신호 부가 표준",
       score: sum(commerceChecks, "points"),
       max: sum(commerceChecks, "max"),
-      checks: commerceChecks,
+      checks: attachFixes(commerceChecks),
     },
   ];
 
@@ -640,4 +671,10 @@ export async function runScan(rawUrl: string): Promise<ScanReport> {
 
 function sum<T>(list: T[], key: keyof T): number {
   return list.reduce((a, c) => a + (c[key] as unknown as number), 0);
+}
+
+function attachFixes(checks: CheckResult[]): CheckResult[] {
+  return checks.map((c) =>
+    c.status === "pass" || !FIXES[c.id] ? c : { ...c, fix: FIXES[c.id] },
+  );
 }
