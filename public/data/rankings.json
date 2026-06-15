@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T03:30:23.540Z",
+  "generatedAt": "2026-06-15T03:40:34.229Z",
   "entries": [
     {
       "name": "대통령실",
@@ -37,86 +37,6 @@
           "id": "commerce",
           "title": "상거래·기타 표준",
           "score": 9,
-          "max": 14
-        }
-      ]
-    },
-    {
-      "name": "통일부",
-      "url": "https://www.unikorea.go.kr",
-      "group": "중앙부처",
-      "grade": "F",
-      "totalScore": 15,
-      "totalMax": 153,
-      "categories": [
-        {
-          "id": "discoverability",
-          "title": "검색 가능성",
-          "score": 15,
-          "max": 25
-        },
-        {
-          "id": "content",
-          "title": "콘텐츠 접근성",
-          "score": 0,
-          "max": 51
-        },
-        {
-          "id": "bot-access",
-          "title": "봇 접근 제어",
-          "score": 0,
-          "max": 15
-        },
-        {
-          "id": "protocols",
-          "title": "프로토콜 발견",
-          "score": 0,
-          "max": 48
-        },
-        {
-          "id": "commerce",
-          "title": "상거래·기타 표준",
-          "score": 0,
-          "max": 14
-        }
-      ]
-    },
-    {
-      "name": "교육부",
-      "url": "https://www.moe.go.kr",
-      "group": "중앙부처",
-      "grade": "F",
-      "totalScore": 10,
-      "totalMax": 153,
-      "categories": [
-        {
-          "id": "discoverability",
-          "title": "검색 가능성",
-          "score": 10,
-          "max": 25
-        },
-        {
-          "id": "content",
-          "title": "콘텐츠 접근성",
-          "score": 0,
-          "max": 51
-        },
-        {
-          "id": "bot-access",
-          "title": "봇 접근 제어",
-          "score": 0,
-          "max": 15
-        },
-        {
-          "id": "protocols",
-          "title": "프로토콜 발견",
-          "score": 0,
-          "max": 48
-        },
-        {
-          "id": "commerce",
-          "title": "상거래·기타 표준",
-          "score": 0,
           "max": 14
         }
       ]
@@ -202,6 +122,46 @@
       ]
     },
     {
+      "name": "교육부",
+      "url": "https://www.moe.go.kr",
+      "group": "중앙부처",
+      "grade": "F",
+      "totalScore": 0,
+      "totalMax": 153,
+      "categories": [
+        {
+          "id": "discoverability",
+          "title": "검색 가능성",
+          "score": 0,
+          "max": 25
+        },
+        {
+          "id": "content",
+          "title": "콘텐츠 접근성",
+          "score": 0,
+          "max": 51
+        },
+        {
+          "id": "bot-access",
+          "title": "봇 접근 제어",
+          "score": 0,
+          "max": 15
+        },
+        {
+          "id": "protocols",
+          "title": "프로토콜 발견",
+          "score": 0,
+          "max": 48
+        },
+        {
+          "id": "commerce",
+          "title": "상거래·기타 표준",
+          "score": 0,
+          "max": 14
+        }
+      ]
+    },
+    {
       "name": "과학기술정보통신부",
       "url": "https://www.msit.go.kr",
       "group": "중앙부처",
@@ -244,6 +204,46 @@
     {
       "name": "외교부",
       "url": "https://www.mofa.go.kr",
+      "group": "중앙부처",
+      "grade": "F",
+      "totalScore": 0,
+      "totalMax": 153,
+      "categories": [
+        {
+          "id": "discoverability",
+          "title": "검색 가능성",
+          "score": 0,
+          "max": 25
+        },
+        {
+          "id": "content",
+          "title": "콘텐츠 접근성",
+          "score": 0,
+          "max": 51
+        },
+        {
+          "id": "bot-access",
+          "title": "봇 접근 제어",
+          "score": 0,
+          "max": 15
+        },
+        {
+          "id": "protocols",
+          "title": "프로토콜 발견",
+          "score": 0,
+          "max": 48
+        },
+        {
+          "id": "commerce",
+          "title": "상거래·기타 표준",
+          "score": 0,
+          "max": 14
+        }
+      ]
+    },
+    {
+      "name": "통일부",
+      "url": "https://www.unikorea.go.kr",
       "group": "중앙부처",
       "grade": "F",
       "totalScore": 0,
