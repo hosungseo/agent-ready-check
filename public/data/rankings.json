@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-24T00:58:09.366Z",
+  "generatedAt": "2026-08-31T03:04:59.581Z",
   "entries": [
     {
       "name": "대통령실",
@@ -82,17 +82,17 @@
       ]
     },
     {
-      "name": "기획재정부",
-      "url": "https://www.moef.go.kr",
+      "name": "교육부",
+      "url": "https://www.moe.go.kr",
       "group": "중앙부처",
       "grade": "F",
-      "totalScore": 0,
+      "totalScore": 10,
       "totalMax": 153,
       "categories": [
         {
           "id": "discoverability",
           "title": "검색 가능성",
-          "score": 0,
+          "score": 10,
           "max": 25
         },
         {
@@ -122,8 +122,8 @@
       ]
     },
     {
-      "name": "교육부",
-      "url": "https://www.moe.go.kr",
+      "name": "기획재정부",
+      "url": "https://www.moef.go.kr",
       "group": "중앙부처",
       "grade": "F",
       "totalScore": 0,
